@@ -1,6 +1,9 @@
 import { Router } from "express";
-export const UserRouter = Router()
+import { PrismaClient } from "@prisma/client";
 
+
+export const UserRouter = Router()
+const prisma = new PrismaClient();
 
 UserRouter
 .get("/",(request,response)=> {
@@ -13,8 +16,15 @@ UserRouter
     response.send(` utilisateur ${request.params.id}`)
 }) 
 
-.post("/",(request,response)=> {
-    
+.post("/",async (request,response)=> {
+    const {
+        Firstname,
+        Lastname,
+        Email,
+        Password
+
+    } = request.body
+    await prisma.user.create({data:{Email,Firstname,Lastname,Password}})
     response.send(` utilisateur:
         
          ${request.body.Firstname}
