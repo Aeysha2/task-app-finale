@@ -1,19 +1,30 @@
 import { Router } from "express";
+import { PrismaClient,$Enums } from "@prisma/client";
 
 export const TaskRouter = Router()
+const prisma = new PrismaClient()
 
 TaskRouter
-    .get("/", (request, response) => {
+    .get("/", async (request, response) => {
+        const tasks = await prisma.task.findMany()
+        response.json({tasks})
 
-        response.send("listes des taches")
     })
 
-    .get("/:id", (request, response) => {
+    .get("/:id", async (request, response) => {
 
-        response.send(` tache ${request.params.id}`)
+        const tasks = await prisma.task.findUnique({where:{id:request.params.id}})
+
+        response.json({tasks})
     })
 
-    .post("/", (request, response) => {
+    .post("/", async (request, response) => {
+        const{
+            title,
+            description,
+            Status
+        } = request.body
+        await prisma.task.create({data:{title,description,Status:$Enums.TaskStatus.PENDING}})
 
         response.send(` tache:
         
