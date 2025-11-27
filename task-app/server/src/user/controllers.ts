@@ -1,31 +1,32 @@
 import { Router } from "express";
 import { PrismaClient } from "@prisma/client";
 
-
+const prismaClient = new PrismaClient()
 export const UserRouter = Router()
-const prisma = new PrismaClient();
-
+const prisma = new PrismaClient()
 UserRouter
-.get("/",(request,response)=> {
+    .get("/", async (request, response) => {
+        const users = await prisma.user.findMany()
 
-    response.send("listes des utilisateur")
-}) 
+        response.json({users})
+    })
 
-.get("/:id",(request,response)=> {
-    
-    response.send(` utilisateur ${request.params.id}`)
-}) 
+    .get("/:id", (request, response) => {
 
-.post("/",async (request,response)=> {
-    const {
-        Firstname,
-        Lastname,
-        Email,
-        Password
+        response.send(` utilisateur ${request.params.id}`)
+    })
 
-    } = request.body
-    await prisma.user.create({data:{Email,Firstname,Lastname,Password}})
-    response.send(` utilisateur:
+    .post("/", async (request, response) => {
+        const {
+            Firstname,
+            Lastname,
+            Email,
+            Password
+        } = request.body
+        prismaClient.user.create({data:{Email,Firstname,Lastname,Password}})
+        await prismaClient.user.create({data:{Email,Firstname,Lastname,Password}})
+
+        response.send(` utilisateur:
         
          ${request.body.Firstname}
          ${request.body.Lastname}
@@ -33,4 +34,4 @@ UserRouter
          ${request.body.Password}
 
          `)
-}) 
+    }) 
