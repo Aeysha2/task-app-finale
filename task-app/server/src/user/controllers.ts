@@ -11,9 +11,11 @@ UserRouter
         response.json({users})
     })
 
-    .get("/:id", (request, response) => {
+    .get("/:id", async (request, response) => {
 
-        response.send(` utilisateur ${request.params.id}`)
+        const users = await prisma.user.findUnique({where:{id:request.params.id}})
+
+        response.json({users})
     })
 
     .post("/", async (request, response) => {
