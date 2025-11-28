@@ -1,5 +1,4 @@
 import { Input } from "../components/input";
-
 export const Register = ()=> {
     return (
     <div className="min-h-screen flex items-center justify-center bg-stone-400">
@@ -7,11 +6,8 @@ export const Register = ()=> {
         <h2 className="text-2xl font-semibold mb-6 text-center">Create Account</h2>
         <div className="space-y-4" >
 
-         
-          {/* Firstname */}
-           <Input />
+           <Input label="Firsname" type="text" />
 
-          {/* Lastname */}
           <div>
             <label className="block text-sm font-medium mb-1" htmlFor="lastname">
               Lastname
@@ -24,7 +20,6 @@ export const Register = ()=> {
             />
           </div>
 
-          {/* Email */}
           <div>
             <label className="block text-sm font-medium mb-1" htmlFor="email">
               Email
@@ -37,7 +32,6 @@ export const Register = ()=> {
             />
           </div>
 
-          {/* Password */}
           <div>
             <label className="block text-sm font-medium mb-1" htmlFor="password">
               Password
@@ -50,7 +44,6 @@ export const Register = ()=> {
             />
           </div>
 
-          {/* Button */}
           <button
             type="submit"
             className="w-full bg-indigo-600 text-white py-2 rounded-md font-medium hover:bg-indigo-700 transition"
