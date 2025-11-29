@@ -11,6 +11,7 @@ export const Register = () => {
         <Input label="Lastname" type="text" />
         <Input label="Email" type="email" />
         <Input label="Password" type="password" />
+        <Input label="Confirm password" type="password" />
         <Button title="Create Account" />
       </div>
     </Form>
