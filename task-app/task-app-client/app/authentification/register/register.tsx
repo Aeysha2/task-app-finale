@@ -3,6 +3,10 @@ import { Button } from "../components/button";
 import { Form } from "../components/form";
 import { FormTitle } from "../components/formTitle";
 export const Register = () => {
+  const handlerRegister = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    console.log("handlerRegister")
+  }
   return (
     <Form>
       <div className="space-y-4" >
@@ -12,7 +16,7 @@ export const Register = () => {
         <Input label="Email" type="email" />
         <Input label="Password" type="password" />
         <Input label="Confirm password" type="password" />
-        <Button title="Create Account" />
+        <Button title="Create Account" onclick={handlerRegister} />
       </div>
     </Form>
   );
