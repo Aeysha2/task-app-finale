@@ -4,7 +4,7 @@ import { ForgotPassword } from "../authentification/forgotPassword/forgotPasswor
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "ForgotPassword" },
-    { name: "description", content: "Welcome to React Router!" },
+
   ];
 }
 

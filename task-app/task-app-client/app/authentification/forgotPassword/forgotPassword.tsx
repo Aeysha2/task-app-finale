@@ -1,3 +1,4 @@
+import { AuthInfo } from "../components/authInfo"
 import { Button } from "../components/button"
 import { Form } from "../components/form"
 import { FormTitle } from "../components/formTitle"
@@ -14,6 +15,7 @@ export const ForgotPassword = () => {
                 <FormTitle title="Mot de passe oublié" />
                 <Input label="Email" type="email" />
                 <Button title="Verification" onclick={handlerForgotPassword} />
+                <AuthInfo action="connectez-vous" answer="vous vous souvenez de votre mot de passe  " url="/" />
             </div>
         </Form>)
 }

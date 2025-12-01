@@ -1,12 +1,13 @@
-import type { Route } from "./+types/home";
+import type { Route } from "./+types/dashboard";
 import { Home } from "../dashboard/home/home";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Home" },
+    { title: "Dashboard" },
+
   ];
 }
 
-export default function home() {
+export default function dashboard() {
   return <Home />;
 }
