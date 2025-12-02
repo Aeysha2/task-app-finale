@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { PrismaClient, $Enums } from "@prisma/client";
+import { PrismaClient, $Enums , TaskStatus} from "@prisma/client";
 import { error } from "node:console";
 
 export const TaskRouter = Router()
@@ -7,11 +7,23 @@ const prisma = new PrismaClient()
 
 TaskRouter
     .get("/", async (request, response) => {
-        const TaskStatus = request.query.Status
-        console.log("request: ", TaskStatus)
-        const tasks = await prisma.task.findMany({ where: { Status: $Enums.TaskStatus.FINISHING } })
-        response.json({ tasks })
-
+        const taskStatus: string = (request.query.Status as string) || ""
+        const statusMap: Record<string,  TaskStatus> = {
+            PENDING:  TaskStatus.PENDING,
+            STARTING:  TaskStatus.STARTING,
+            FINISHING:  TaskStatus.FINISHING
+        }
+        
+        if (taskStatus && statusMap[taskStatus]) {
+            const statusValue = statusMap[taskStatus]
+            console.log("request: " , taskStatus,statusValue)
+            const tasks = await prisma.task.findMany({ 
+        where: { Status: statusValue }
+    })
+    return response.json({ tasks })
+    }
+    const tasks = await prisma.task.findMany()
+    return response.json({ tasks })
     })
 
     .get("/:id", async (request, response) => {
