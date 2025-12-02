@@ -1,19 +1,15 @@
 import { Router } from "express";
 import { PrismaClient } from "@prisma/client";
+import { findAll, findById } from "./service";
+
 
 const prismaClient = new PrismaClient()
 export const UserRouter = Router()
 const prisma = new PrismaClient()
 UserRouter
-    .get("/", async (request, response) => {
-        const users = await prisma.user.findMany()
-        response.json({ users })
-    })
+    .get("/", findAll)
 
-    .get("/:id", async (request, response) => {
-        const user = await prisma.user.findUnique({ where: { id: request.params.id } })
-        response.json({ user })
-    })
+    .get("/:id",findById )
 
 
 
