@@ -15,11 +15,7 @@ TaskRouter
     .patch("/finishing/:id", finishingTask)
 
     .post("/", async (request, response) => {
-        const {
-            title,
-            description,
-            Status
-        } = request.body
+        const { title,description} = request.body
         await prisma.task.create({ data: { title, description, Status: TaskStatus.PENDING } })
 
         response.send(` tache:
