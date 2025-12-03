@@ -18,6 +18,5 @@ UserRouter
     .post("/", async (request, response) => {
         const user = await createUser(request.body)
         response.json({ user })
-
-
+        
     }) 
