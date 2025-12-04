@@ -4,11 +4,9 @@ export const Button = ({title,onclick}: ButtonParams) => {
     return (
         <button
             onClick={onclick}
-            type="submit"
-            className="w-full bg-indigo-600 text-white py-2 rounded-md font-medium hover:bg-indigo-700 transition">
-            {
-                title
-            }
+            type="button"
+            className="w-full bg-blue-600 text-white py-2 rounded-md font-medium hover:bg-indigo-700 transition">
+            {title}
         </button>
     )
 }

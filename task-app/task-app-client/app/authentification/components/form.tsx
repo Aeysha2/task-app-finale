@@ -1,9 +1,9 @@
 import type React from "react"
 
-export const Form = ({children, position="center"}:{children:React.ReactNode, position?:string}) => {
+export const Form = ({children,position = "center"}:{children:React.ReactNode, position?:string}) => {
     return (
-        <div className={`min-h-screen flex items-${position} justify-center bg-gray-100`}>
-            <form className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg b">
+        <div className= {`flex items-${position} justify-center min-h-screen bg-gray-100`}>
+            <form className="bg-white p-8 rounded-2xl w-full max-w-md not-first:shadow-lg b">
                 {children}
             </form>
         </div>

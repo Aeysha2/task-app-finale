@@ -18,9 +18,9 @@ export const Login = () => {
             <FormTitle title="connexion" />
             <Input label="Email" type="email" />
             <Input label="Password" type="password" />
-            <Button title="Connect" onclick={handlerLogin} />
-            <AuthInfo action="inscrivez-vous"  answer="Vous n'avez pas de compte" url="/register"/>
-            <AuthInfo action="réinitialiser-le"  answer="Mot de passe oublié " url="/forgotpassword"/>
+            <Button title="Se Connecter" onclick={handlerLogin}/>
+            <AuthInfo action="inscrivez-vous" answer="Vous n'avez pas de compte" url="/register" />
+            <AuthInfo action="réinitialiser-le" answer="Mot de passe oublié " url="/forgotpassword" />
          </div>
       </Form>
 
