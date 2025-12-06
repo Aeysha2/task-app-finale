@@ -1,34 +1,50 @@
-import { error } from "console"
-import { useEffect, useState } from "react"
-import { Button } from "~/authentification/components/button"
-import { Form } from "~/authentification/components/form"
-import { FormTitle } from "~/authentification/components/formTitle"
-import { Input } from "~/authentification/components/input"
-import { baseUrl } from "~/utils/constante"
+import { useState } from "react";
+import { Button } from "~/authentification/components/button";
+import { Form } from "~/authentification/components/form";
+import { FormTitle } from "~/authentification/components/formTitle";
+import { Input } from "~/authentification/components/input";
+import { baseUrl } from "~/utils/constante";
 
 export const AddTask = () => {
-    const [title,setTitle] = useState("")
-    const [description,setDescription] = useState("")
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
 
-    const addTask = (event:any) => {
-        event.preventDefault()
-        fetch(`${baseUrl}/tasks`,{method:"POST",
-            headers:{"content-type": "application/json"},
-            body: JSON.stringify({title:"devoir",description:"a faire"})})
-         .then(response => response.json())
-         .then(task => console.log(task))
-         .catch((error) => {
-            console.error("Erreur lors de la creation de la tâche:", error);
-         })
-        console.log(title,description)
-     }
- 
+    const addTask = async (event: any) => {
+        event.preventDefault();
+
+        try {
+            const response = await fetch(`${baseUrl}/tasks`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ title, description }),
+            });
+
+            const task = await response.json();
+            console.log("Tâche créée :", task);
+        } catch (error) {
+            console.error("Erreur lors de la création de la tâche :", error);
+        }
+    };
+
     return (
-        <Form position="start"> 
-        <FormTitle title="Nouvelle tache" />
-        <Input label="Titre" type="text" onChange={setTitle} />
-        <Input label="Description" type="text" onChange={setDescription} />
-        <Button title="Ajouter" onclick={addTask} />
+        <Form position="start">
+            <FormTitle title="Nouvelle tâche" />
+            <Input label="Titre" type="text" onChange={setTitle} />
+            <Input label="Description" type="text" onChange={setDescription} />
+            <Button title="Ajouter" onclick={addTask} />
         </Form>
-    )
-}
+
+    );
+
+};
+
+
+
+
+
+
+
+
+
+
+
