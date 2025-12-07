@@ -3,7 +3,6 @@ export type CreateUser = {
     Lastname: string
     Email: string
     Password: string
-    ConfirmPassword: string
 }
 
 export type UpdateUser = Partial<Omit <CreateUser , "Password">>
@@ -13,4 +12,6 @@ export type CreateTask = {
     description: string
     
 }
+
+export type LoginUser = Pick <CreateUser, "Email" | "Password">
 

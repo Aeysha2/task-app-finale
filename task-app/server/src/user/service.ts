@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { CreateUser, UpdateUser } from "@src/type";
+import { CreateUser, UpdateUser, LoginUser } from "@src/type";
 const prisma = new PrismaClient()
 
 export const findAll = async (request: any, response: any) => {
@@ -26,5 +26,15 @@ export const updateById = async (id:any, body:UpdateUser) => {
     }   
     
 export const createUser = async (body: CreateUser) => {
-    return await prisma.user.create({ data: body })
+    return await prisma.user.create({ 
+        data: body ,
+    })
+}
+
+export const loginUser = async (body: LoginUser) => {
+   const user = await prisma.user.findUnique({where:{Email: body.Email}})
+     if(!user) throw new Error ("l‘utiliateur n‘existe pas")
+     if(user.Password !== body.Password) throw new Error("le smots de passe ne sont pas les memes")
+     return user
+
 }

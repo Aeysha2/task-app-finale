@@ -14,7 +14,6 @@ model User {
   Lastname String
   Email String @unique
   Password String
-  ConfirmPassword String
   }
 
   model Task {
