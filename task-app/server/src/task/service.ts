@@ -19,7 +19,7 @@ export const findAllTasks = async (request:any, response:any) => {
     }
 
     const tasks = await prisma.task.findMany()
-    return response.json( tasks )
+    return response.json( tasks)
 
     }
 

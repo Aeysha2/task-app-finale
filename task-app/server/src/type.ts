@@ -3,6 +3,7 @@ export type CreateUser = {
     Lastname: string
     Email: string
     Password: string
+    ConfirmPassword: string
 }
 
 export type UpdateUser = Partial<Omit <CreateUser , "Password">>
