@@ -1,10 +1,10 @@
-import { PrismaClient,Task,TaskStatus} from "@prisma/client";
+import { PrismaClient,TaskStatus} from "@prisma/client";
 import { CreateTask } from "@src/type";
 const prisma = new PrismaClient()
 
 
-export const findAllTasks = async (request:any, response:any) => {
-        const taskStatus: string = (request.query.Status as string) || ""
+export const findAllTasks = async (taskStatus:string, userId:string) => {
+    if(!userId) throw new Error("l‘ID de l‘utilisateur n‘existe pas ") 
         const statusMap: Record<string,  TaskStatus> = {
             PENDING:  TaskStatus.PENDING,
             STARTING:  TaskStatus.STARTING,
@@ -14,13 +14,12 @@ export const findAllTasks = async (request:any, response:any) => {
     if (taskStatus && statusMap[taskStatus]) {
             const statusValue = statusMap[taskStatus]
             const tasks = await prisma.task.findMany({ 
-        where: { Status: statusValue }
+        where: { Status: statusValue , userId}
     })
-    return response.json( tasks )
+    return  tasks 
     }
 
-    const tasks = await prisma.task.findMany()
-    return response.json( tasks)
+    return await prisma.task.findMany()
 
     }
 
@@ -68,7 +67,7 @@ export const finishingTask = async (request:any, response:any) => {
 
 export const createTask = async (body: CreateTask) => {
     return await prisma.task.create({ 
-        data: {title: body.title, description: body.description, Status: TaskStatus.PENDING}
+        data: {title: body.title, description: body.description, Status: TaskStatus.PENDING, userId: body.userId}
     })
 
 }    

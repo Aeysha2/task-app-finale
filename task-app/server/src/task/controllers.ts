@@ -1,12 +1,25 @@
 import { Router } from "express";
-import { PrismaClient,TaskStatus} from "@prisma/client";
-import { createTask, findAllTasks, findTaskById, finishingTask, startingTask } from "./service";
+import { 
+    createTask, 
+    findAllTasks,
+    findTaskById, 
+    finishingTask, 
+    startingTask 
+} from "./service";
 
 export const TaskRouter = Router()
-const prisma = new PrismaClient()
-
 TaskRouter
-    .get("/", findAllTasks)
+    .get("/users/:id", async(request,response) => {
+        try {
+            const taskStatus:string = (request.query.Status as string) || ""
+            const tasks = await findAllTasks(taskStatus,request.params.id)
+            return response.json(tasks)
+        } catch (error:any) {
+            response.status(404).json({message: error.message})
+            
+        }
+    })
+            
 
     .get("/:id",findTaskById )
 

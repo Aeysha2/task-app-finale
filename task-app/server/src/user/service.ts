@@ -34,7 +34,7 @@ export const createUser = async (body: CreateUser) => {
 export const loginUser = async (body: LoginUser) => {
    const user = await prisma.user.findUnique({where:{Email: body.Email}})
      if(!user) throw new Error ("l‘utiliateur n‘existe pas")
-     if(user.Password !== body.Password) throw new Error("le smots de passe ne sont pas les memes")
+     if(user.Password !== body.Password) throw new Error("le mots de passe ne sont pas les memes")
      return user
 
 }
