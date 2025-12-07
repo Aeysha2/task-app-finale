@@ -7,3 +7,10 @@ export type CreateUser = {
 }
 
 export type UpdateUser = Partial<Omit <CreateUser , "Password">>
+
+export type CreateTask = {
+    title: string
+    description: string
+    
+}
+

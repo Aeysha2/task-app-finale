@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { PrismaClient,TaskStatus} from "@prisma/client";
-import { findAllTasks, findTaskById, finishingTask, startingTask } from "./service";
+import { createTask, findAllTasks, findTaskById, finishingTask, startingTask } from "./service";
 
 export const TaskRouter = Router()
 const prisma = new PrismaClient()
@@ -15,9 +15,8 @@ TaskRouter
     .patch("/finishing/:id", finishingTask)
 
     .post("/", async (request, response) => {
-        const { title,description} = request.body
-        const task = await prisma.task.create({ 
-            data: { title, description, Status: TaskStatus.PENDING } })
+        
+        const task = await createTask(request.body)
 
-        response.json({task})
+        response.json(task)
     }) 

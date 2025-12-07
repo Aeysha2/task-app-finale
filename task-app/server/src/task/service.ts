@@ -1,4 +1,5 @@
-import { PrismaClient,TaskStatus} from "@prisma/client";
+import { PrismaClient,Task,TaskStatus} from "@prisma/client";
+import { CreateTask } from "@src/type";
 const prisma = new PrismaClient()
 
 
@@ -64,3 +65,10 @@ export const finishingTask = async (request:any, response:any) => {
             response.status(404).json({ message: error.message })
         }
     }
+
+export const createTask = async (body: CreateTask) => {
+    return await prisma.task.create({ 
+        data: {title: body.title, description: body.description, Status: TaskStatus.PENDING}
+    })
+
+}    
