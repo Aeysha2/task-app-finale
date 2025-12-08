@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import { CreateUser, UpdateUser, LoginUser } from "@src/type";
-import { generateToken } from "@src/utils/jwt.js";
 import { compare, hash } from "bcrypt";
 const prisma = new PrismaClient()
 
@@ -38,7 +37,7 @@ export const loginUser = async (body: LoginUser) => {
    const user = await prisma.user.findUnique({where:{Email: body.Email}})
      if(!user) throw new Error ("l‘utiliateur n‘existe pas")
      const isSamePassword = await compare(body.Password,user.Password)
-     if(isSamePassword) return generateToken(user.id, user.Email)
+     if(isSamePassword) return user
      throw new Error(" Mots de passe incorrect")
         
      
