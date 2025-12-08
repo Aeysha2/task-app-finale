@@ -12,7 +12,6 @@ export const Register = () => {
   const [Lastname, setLastname] = useState("")
   const [Email, setEmail] = useState("")
   const [Password, setPassword] = useState("")
-  const [ConfirmPassword, setConfirmPassword] = useState("")
   
   const navigate = useNavigate()
   const handlerRegister = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -20,19 +19,16 @@ export const Register = () => {
     fetch(`${baseUrl}/users`, {
       method: "POST",
       headers: {"Content-type": "application/json"},
-      body: JSON.stringify({Firstname,Lastname,Email,Password,ConfirmPassword})
+      body: JSON.stringify({Firstname,Lastname,Email,Password})
     })
     .then(response => response.json())
     .then(user => {
-      console.log(user)
-      //navigate("/")
+      navigate("/")
 
     })
     .catch((error) => {
                 console.error("Erreur lors de la creation de l‘utilisateur:", error)})
   }
-
-    
 
   return (
     <Form>
@@ -42,7 +38,7 @@ export const Register = () => {
         <Input label="Lastname" type="text" onChange={setLastname}/>
         <Input label="Email" type="email" onChange={setEmail}/>
         <Input label="Password" type="password" onChange={setPassword}/>
-        <Input label="Confirm password" type="password" onChange={setConfirmPassword}/>
+        <Input label="Confirmer le Password" type="password" onChange={setPassword}/>
         <Button title="Create Account" onclick={handlerRegister} />
         <AuthInfo action="connecter-vous"  answer="Vous avez deja un  compte" url="/"/>
       </div>
