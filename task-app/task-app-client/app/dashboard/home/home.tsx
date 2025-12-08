@@ -1,20 +1,23 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { AddTask } from "../components/addTask"
 import { DisplayTask } from "../components/displayTasks"
-
+import { userLoggedKey } from "~/utils/constante"
+import type { UserLogged } from "~/types"
+import { getUserFromStorage } from "~/utils/getUserLogged"
 
 export const Home = () => {
+    const [user, setUser] = useState < string|null>(null)
     const [tasksVisibility,setTasksVisibility] = useState(true)
-
 
     const toggle = () => {
         setTasksVisibility(!tasksVisibility)
-        console.log("toggle")
     }
+    useEffect(() => {
+        const userLogged:UserLogged |null = getUserFromStorage()
+        setUser(localStorage.getItem(userLoggedKey))
+        console.log("yacou",userLogged)
+    },[])
 
-    if (tasksVisibility) {
-
-    }
     return (
         <>
             <div className="bg-blue-600 p-10 gap-40 flex justify-center items-center">

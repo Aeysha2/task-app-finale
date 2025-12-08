@@ -5,19 +5,29 @@ import { Form } from "../components/form"
 import { FormTitle } from "../components/formTitle"
 import { Input } from "../components/input"
 import { useNavigate } from "react-router";
+import { baseUrl, userLoggedKey } from "~/utils/constante";
+import type { UserLogged } from "~/types";
 
 export const Login = () => {
-   const [email,setEmail] = useState("")
-   const [password,setPassword] = useState("")
-
-   
-
+   const [Email,setEmail] = useState("")
+   const [Password,setPassword] = useState("")
 
    const navigate = useNavigate()
    const handlerLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault()
-      navigate("dashboard")
-      console.log("handlerLogin")
+      fetch(`${baseUrl}/users/login`, {
+            method: "POST",
+            headers: {"Content-type": "application/json"},
+            body: JSON.stringify({Email,Password})
+          })
+          .then(response => response.json())
+          .then(({user}) => {
+            localStorage.setItem(userLoggedKey, JSON.stringify(user))
+            navigate("dashboard")
+      
+          })
+          .catch((error) => {
+                      console.error("Echec  de la connexion:", error)})
    }
    return (
       <Form>

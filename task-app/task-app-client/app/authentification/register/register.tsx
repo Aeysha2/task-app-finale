@@ -22,7 +22,7 @@ export const Register = () => {
       body: JSON.stringify({Firstname,Lastname,Email,Password})
     })
     .then(response => response.json())
-    .then(user => {
+    .then((user) => {
       navigate("/")
 
     })
