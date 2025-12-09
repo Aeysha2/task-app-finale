@@ -1,10 +1,21 @@
-import { useState } from "react";
 import type { TaskParams } from "~/types";
+import { baseUrl } from "~/utils/constante";
 
-export const  TaskItem = ({description, id, Status,title}:TaskParams ) => {
+export const  TaskItem = ({task} : {task?:TaskParams}) => {
 
-  const handleStart = () => {
-    console.log("En cours")
+
+  const handleStart = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+          fetch(`${baseUrl}/tasks/starting/${task?.id}`, {
+                method: "PATCH",
+                headers: {"Content-type": "application/json"},
+              })
+              .then(response => response.json())
+              .then(({task}) => {
+                console.log(task)
+              })
+              .catch((error) => {
+                          console.error("Echec  de la connexion:", error)})
   };
 
   const handleDelete = () => {
@@ -17,19 +28,16 @@ export const  TaskItem = ({description, id, Status,title}:TaskParams ) => {
 
   return (
     <div className="max-w-md bg-white shadow-md rounded-2xl p-4 border">
-      <h3 className="text-lg font-bold mb-1">{title}</h3>
-
+      <h3 className="text-lg font-bold mb-1">{task?.title}</h3>
       <p className="text-gray-600 mb-2">
-        {description}
+        {task?.description}
       </p>
-
       <p className="text-sm mb-3">
         <span className="font-semibold"> Status :</span>{" "}
         <span>
-          {Status}
+          {task?.Status}
         </span>
       </p>
-
       <div className="flex gap-3">
         <button
           onClick={handleEdit}
@@ -37,14 +45,12 @@ export const  TaskItem = ({description, id, Status,title}:TaskParams ) => {
         >
           Modifier
         </button>
-
         <button
           onClick={handleDelete}
           className="px-3 py-1 rounded-xl bg-red-500 text-white hover:bg-red-600 transition"
         >
           Supprimer
         </button>
-
         <button
           onClick={handleStart}
           className="px-3 py-1 rounded-xl bg-blue-500 text-white hover:bg-blue-600 transition"
