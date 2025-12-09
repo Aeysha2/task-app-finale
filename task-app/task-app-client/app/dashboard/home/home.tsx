@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { AddTask } from "../components/addTask"
 import { DisplayTask } from "../components/displayTasks"
-import { userLoggedKey } from "~/utils/constante"
 import type { UserLogged } from "~/types"
 import { getUserFromStorage } from "~/utils/getUserLogged"
 
@@ -16,7 +15,7 @@ export const Home = () => {
     useEffect(() => {
         const userLogged:UserLogged |null = getUserFromStorage()
         setUser(userLogged)  
-    },[user])
+    },[])
     return (
         <>
             <div className="bg-blue-600 p-10 gap-40 flex justify-center items-center">
@@ -38,8 +37,8 @@ export const Home = () => {
             </nav>
             {
                 tasksVisibility
-                    ? <DisplayTask />
-                    : <AddTask />
+                    ? <DisplayTask user={user}  />
+                    : <AddTask user={user} />
             }
         </>
     )

@@ -3,10 +3,11 @@ import { Button } from "~/authentification/components/button"
 import { Form } from "~/authentification/components/form"
 import { FormTitle } from "~/authentification/components/formTitle"
 import { Input } from "~/authentification/components/input"
+import type { UserLogged } from "~/types"
 import { baseUrl } from "~/utils/constante"
 
 
-export const AddTask = () => {
+export const AddTask = ({user}:{user?:UserLogged | null}) => {
 
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
@@ -16,7 +17,7 @@ export const AddTask = () => {
         fetch(`${baseUrl}/tasks`, {
             method: "POST",
             headers: { "content-type": "application/json" },
-            body: JSON.stringify({ title, description})
+            body: JSON.stringify({ title, description,userId:user?.id})
         })
             .then(response => response.json())
             .then(task => {})
