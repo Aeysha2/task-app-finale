@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { createUser, findAll, findById, loginUser, updateById } from "./service";
+import { createUser, findAll, findById, loginUser, updateById } from "./service.js";
+import { generateToken } from "../utils/jwt.js";
 
 
 
@@ -24,7 +25,8 @@ UserRouter
     .post("/login", async(request, response) => {
         try {
             const user = await loginUser({Email: request.body.Email , Password: request.body.Password})
-            response.json({user})
+            const token = generateToken(user.id, user.Email)
+            response.json({token})
             
         } catch(error:any) {
             response.status(403).json({

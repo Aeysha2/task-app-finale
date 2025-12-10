@@ -5,7 +5,7 @@ import {
     findTaskById,
     finishingTask,
     startingTask
-} from "./service";
+} from "./service.js";
 
 export const TaskRouter = Router()
 TaskRouter
