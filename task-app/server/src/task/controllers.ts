@@ -33,7 +33,6 @@ TaskRouter
             response.json({ taskUpdated })
         } catch (error: any) {
             response.status(404).json({ message: error.message })
-
         }
     })
 
@@ -43,10 +42,8 @@ TaskRouter
             response.json({ taskUpdated })
         } catch (error: any) {
             response.status(404).json({ message: error.message })
-
         }
-    }
-    )
+    })
 
     .post("/", async (request, response) => {
 

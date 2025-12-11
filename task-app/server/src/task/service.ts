@@ -44,7 +44,6 @@ export const startingTask = async (id: string) => {
             data: { Status: TaskStatus.STARTING }
         })
         return taskUpdated
-
     } catch (error: any) {
         throw new Error(error.message)
     }
@@ -71,7 +70,6 @@ export const finishingTask = async (id: string) => {
 
 export const createTask = async (body: CreateTask) => {
     return await prisma.task.create({
-        data: { title: body.title, description: body.description, Status: TaskStatus.PENDING, userId: body.userId }
+        data: { title:body.title, description:body.description, Status: TaskStatus.PENDING, userId:body.userId }
     })
-
 }    

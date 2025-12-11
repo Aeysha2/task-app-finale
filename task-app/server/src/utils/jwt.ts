@@ -5,6 +5,6 @@ export const generateToken = (userId: string, Email:string) => {
     return jwt.sign(
         {userId,Email},
         SECRET_KEY,
-        {expiresIn:"2h"}
+        {expiresIn:"1h"}
     )
 }
