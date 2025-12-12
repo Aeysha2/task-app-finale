@@ -9,11 +9,11 @@ import {
 
 export const TaskRouter = Router()
 TaskRouter
-    .get("/users/:id", async (request, response) => {
-        console.log(request.params.id)
+    .get("/", async (request:any, response:any) => {
+        console.log("TaskRouter",request.userId)
          try {
             const taskStatus: string = (request.query.Status as string) || ""
-             const tasks = await findAllTasks(taskStatus, request.params.id)
+             const tasks = await findAllTasks(taskStatus, request.userId)
             return response.json(tasks)
          } catch (error: any) {
             response.status(404).json({ message: error.message })
@@ -45,9 +45,9 @@ TaskRouter
         }
     })
 
-    .post("/", async (request, response) => {
+    .post("/", async (request:any, response:any) => {
 
-        const task = await createTask(request.body)
+        const task = await createTask({...request.body, userId:request.userId})
 
-        response.json(task)
+        response.json({task})
     }) 

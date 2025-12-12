@@ -69,6 +69,7 @@ export const finishingTask = async (id: string) => {
 }
 
 export const createTask = async (body: CreateTask) => {
+    console.log("userId", body)
     return await prisma.task.create({
         data: { title:body.title, description:body.description, Status: TaskStatus.PENDING, userId:body.userId }
     })

@@ -1,7 +1,14 @@
-export const Auth = (request:any,response:any,next:any) => {
+import jwt from "jsonwebtoken"
 
-    console.log("token",request.headers)
-
+export const Auth = (request: any, response: any, next: any) => {
+    try {
+        const authorization = request.headers.authorization
+        if(!authorization) throw new Error("Connectez vous svp!")
+        const [type, token] = authorization.split(" ")
+        const decodeToken:any = jwt.decode(token)
+        request.userId = decodeToken?.userId
     next()
-
+    } catch (error:any) {
+        response.status(403).json({message: error.message})   
+    }
 }
