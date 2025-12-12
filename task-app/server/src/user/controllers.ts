@@ -1,20 +1,20 @@
 import { Router } from "express";
 import { createUser, findAll, findById, loginUser, updateById } from "./service.js";
 import { generateToken } from "../utils/jwt.js";
+import { Auth } from "../middleware/auth.js";
 
 
 
 export const UserRouter = Router()
-UserRouter
-    .get("/", async(request,response)=> {
+UserRouter.get("/",Auth, async(request, response)=> {
         response.json({user: await findAll() })
     })
 
-    .get("/:id", async (request,response) => {
+    .get("/:id", Auth ,async (request,response) => {
         response.json({user: await findById(request.params.id) })
     })
 
-    .put("/:id", async (request, response) => {
+    .put("/:id", Auth, async (request, response) => {
         response.json({ user: await updateById(request.params.id, request.body) })
     })
 
