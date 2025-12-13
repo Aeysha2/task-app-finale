@@ -35,8 +35,20 @@ export const  TaskItem = ({task} : {task?:TaskParams}) => {
               console.error("Echec  de la connexion:", error)})
   };
 
-  const handleDelete = () => {
-    alert("Tâche supprimée !");
+  const handleDelete = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+          fetch(`${baseUrl}/tasks/${task?.id}`, {
+                method: "DELETE",
+                headers: {
+                  "Content-type": "application/json" ,         
+                  "Authorization": `Bearer ${getTokenFromStorage()}`
+                },
+              })
+              .then(response => response.json())
+              .then(({task}) => {
+              })
+              .catch((error) => {
+              console.error("Echec  de la connexion:", error)})
   };
 
   const handleEdit = () => {
@@ -81,7 +93,7 @@ const finishingButton = <button
         </button>
         { task?.Status === "PENDING"
         ? startingButton
-        : task?.Status === "STARTING" ? finishingButton : "Tâche bien terminée vous pouvez la modifier et recommencer"
+        : task?.Status === "STARTING" ? finishingButton : "Tâche terminée "
         }
       </div>
     </div>
