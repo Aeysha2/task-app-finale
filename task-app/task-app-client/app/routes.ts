@@ -7,4 +7,5 @@ export default [
     route("resetPassword/:token","routes/resetPassword.tsx"),
     route("home","routes/home.tsx"),
     route("dashboard","routes/dashboard.tsx"),
+    route("task/:id", "routes/taskDetail.tsx"),
 ] satisfies RouteConfig;
