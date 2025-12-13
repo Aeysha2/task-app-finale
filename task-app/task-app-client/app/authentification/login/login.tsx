@@ -6,13 +6,12 @@ import { FormTitle } from "../components/formTitle"
 import { Input } from "../components/input"
 import { useNavigate } from "react-router";
 import { baseUrl, userLoggedKey } from "~/utils/constante";
-import type { UserLogged } from "~/types";
 
 export const Login = () => {
+   const navigate = useNavigate()
    const [Email,setEmail] = useState("")
    const [Password,setPassword] = useState("")
 
-   const navigate = useNavigate()
    const handlerLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault()
       fetch(`${baseUrl}/users/login`, {
@@ -20,9 +19,9 @@ export const Login = () => {
             headers: {"Content-type": "application/json"},
             body: JSON.stringify({Email,Password})
           })
-          .then(response => response.json())
-          .then(({user}) => {
-            localStorage.setItem(userLoggedKey, JSON.stringify(user))
+          .then((response) => response.json())
+          .then(({token}) => {
+            localStorage.setItem(userLoggedKey, JSON.stringify(token))
             navigate("dashboard")
       
           })

@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 import { AddTask } from "../components/addTask"
 import { DisplayTask } from "../components/displayTasks"
 import type { UserLogged } from "~/types"
-import { getUserFromStorage } from "~/utils/getUserLogged"
+import { baseUrl, userLoggedKey } from "~/utils/constante"
+import { getTokenFromStorage } from "~/utils/getUserLogged"
 
 export const Home = () => {
     const [user, setUser] = useState < UserLogged|null>(null)
@@ -11,9 +12,23 @@ export const Home = () => {
     const toggle = () => {
         setTasksVisibility(!tasksVisibility)
     }
+    const getUserConnected = () => {
+        let userConnected = null
+        fetch(`${baseUrl}/users/me`, {
+        headers: {
+        "Content-type": "application/json",
+        "Authorization": `Bearer ${getTokenFromStorage()}`
+        },
+        })
+    .then(response => response.json())
+    .then(user => userConnected= user)
+    .catch((error) => {
+    console.error("Echec  de chargement du profil utilisateur:", error)})
+    return userConnected
+    }
 
     useEffect(() => {
-        const userLogged:UserLogged |null = getUserFromStorage()
+        const userLogged:UserLogged |null = getUserConnected()
         setUser(userLogged)  
     },[])
     return (

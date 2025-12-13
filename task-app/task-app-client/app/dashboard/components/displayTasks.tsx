@@ -7,7 +7,6 @@ import { baseUrl } from "~/utils/constante"
 export const DisplayTask = ({user}:{user?:UserLogged | null} ) => {
   const [getTasks,setTask] = useState < TaskParams []>([])
   useEffect(() => {
-    console.log("Aida",user)
     fetch(`${baseUrl}/tasks/users/${user?.id}`)
     .then(response => response.json())
     .then(tasks => setTask(tasks))

@@ -1,8 +1,7 @@
-import type { UserLogged } from "~/types";
 import { userLoggedKey } from "./constante";
 
-export function getUserFromStorage(): UserLogged | null {
+export function getTokenFromStorage(): string | null {
     const stored = localStorage.getItem(userLoggedKey)
-    return stored ? JSON.parse(stored) as UserLogged: null
+    return stored ? JSON.parse(stored) : null
 
 }
