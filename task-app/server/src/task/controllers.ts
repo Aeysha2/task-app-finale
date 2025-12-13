@@ -10,7 +10,7 @@ import {
 export const TaskRouter = Router()
 TaskRouter
     .get("/", async (request:any, response:any) => {
-        console.log("TaskRouter",request.userId)
+        // console.log("TaskRouter",request.userId)
          try {
             const taskStatus: string = (request.query.Status as string) || ""
              const tasks = await findAllTasks(taskStatus, request.userId)
