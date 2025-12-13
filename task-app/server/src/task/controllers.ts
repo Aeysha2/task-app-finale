@@ -5,8 +5,10 @@ import {
     findAllTasks,
     findTaskById,
     finishingTask,
-    startingTask
+    startingTask,
+    updateTask
 } from "./service.js";
+import { Auth } from "../middleware/auth.js";
 
 export const TaskRouter = Router()
 TaskRouter
@@ -47,6 +49,15 @@ TaskRouter
             response.status(404).json({ message: error.message })
         }
     })
+
+    .put("/:id", Auth,async (request:any, response:any) => {
+    try {
+        const updatedTask = await updateTask(request.params.id, request.body)
+        response.json({ task: updatedTask })
+    } catch (error:any) {
+        response.status(400).json({ message: error.message })
+    }
+})
 
     .post("/", async (request:any, response:any) => {
 

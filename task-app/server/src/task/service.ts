@@ -75,6 +75,21 @@ export const finishingTask = async (id: string) => {
     }
 }
 
+export const updateTask = async (id: string, body: any) => {
+    const task = await prisma.task.findUnique({ where: { id } })
+    if (!task) throw new Error(`Task non trouvée avec cet id : ${id}`)
+
+    if (!body.title) body.title = task.title
+    if (!body.description) body.description = task.description
+    if (!body.Status) body.Status = task.Status
+
+    return await prisma.task.update({
+        where: { id },
+        data: body,
+    })
+}
+
+
 export const createTask = async (body: CreateTask) => {
     console.log("userId", body)
     return await prisma.task.create({
