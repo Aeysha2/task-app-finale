@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
     createTask,
+    deleteTaskById,
     findAllTasks,
     findTaskById,
     finishingTask,
@@ -10,7 +11,6 @@ import {
 export const TaskRouter = Router()
 TaskRouter
     .get("/", async (request:any, response:any) => {
-        // console.log("TaskRouter",request.userId)
          try {
             const taskStatus: string = (request.query.Status as string) || ""
              const tasks = await findAllTasks(taskStatus, request.userId)
@@ -20,12 +20,15 @@ TaskRouter
          }
     })
 
-
     .get("/:id", async (request, response) => {
         const task = await findTaskById(request.params.id)
         return response.json({ task })
-    }
-    )
+    })
+
+    .delete("/:id", async (request, response) => {
+        const task = await deleteTaskById(request.params.id)
+        return response.json({ task })
+    })
 
     .patch("/starting/:id", async (request, response) => {
         try {
