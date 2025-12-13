@@ -1,6 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import { CreateUser, UpdateUser, LoginUser } from "@src/type";
+import { generateToken } from "../utils/jwt.js";
 import { hash ,compare} from "bcrypt";
+import { sendEmail } from "../utils/sendMail.js";
 
 
 const prisma = new PrismaClient()
@@ -13,6 +15,17 @@ export const findById = async (id:string) => {
         return await prisma.user.findUnique({ 
             where: { id }
          })
+    }
+
+export const forgotPassword = async (Email:string) => {
+        const user = await prisma.user.findUnique({ 
+            where: { Email }
+         })
+        if (!user) throw new Error(`Utilisateur non trouver avec cet Email. ${Email}`)
+        const token = generateToken(user.id, user.Email)
+        const link = `http://localhost:5173/resetPassword/${token}`
+        await sendEmail({to:Email, subject:link, html:"Reinitialisation de mot de passe"})
+
     }
 
 export const updateById = async (id:string, body:UpdateUser) => {
