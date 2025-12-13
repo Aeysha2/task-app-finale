@@ -2,12 +2,15 @@ import type { TaskParams, UserLogged } from "~/types"
 import { TaskItem } from "./taskItem"
 import { useEffect, useState } from "react"
 import { baseUrl } from "~/utils/constante"
+import { getTokenFromStorage } from "~/utils/getUserLogged"
 
 
 export const DisplayTask = ({user}:{user?:UserLogged | null} ) => {
   const [getTasks,setTask] = useState < TaskParams []>([])
   useEffect(() => {
-    fetch(`${baseUrl}/tasks/users/${user?.id}`)
+    fetch(`${baseUrl}/tasks`,{
+      headers: {"Authorization": `Bearer ${getTokenFromStorage()}`}
+    })
     .then(response => response.json())
     .then(tasks => setTask(tasks))
     

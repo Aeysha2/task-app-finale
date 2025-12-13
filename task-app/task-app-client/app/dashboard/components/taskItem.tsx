@@ -1,5 +1,6 @@
 import type { TaskParams } from "~/types";
 import { baseUrl } from "~/utils/constante";
+import { getTokenFromStorage } from "~/utils/getUserLogged";
 
 export const  TaskItem = ({task} : {task?:TaskParams}) => {
 
@@ -8,11 +9,13 @@ export const  TaskItem = ({task} : {task?:TaskParams}) => {
     event.preventDefault()
           fetch(`${baseUrl}/tasks/starting/${task?.id}`, {
                 method: "PATCH",
-                headers: {"Content-type": "application/json"},
+                headers: {
+                  "Content-type": "application/json" ,         
+                  "Authorization": `Bearer ${getTokenFromStorage()}`
+                },
               })
               .then(response => response.json())
               .then(({task}) => {
-                console.log(task)
               })
               .catch((error) => {
                           console.error("Echec  de la connexion:", error)})
