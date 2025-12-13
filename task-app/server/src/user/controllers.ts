@@ -1,31 +1,31 @@
 import { Router } from "express";
-import { createUser, findAll, findById, loginUser, updateById, forgotPassword} from "./service.js";
+import { createUser, findAll, findById, loginUser, updateById, forgotPassword } from "./service.js";
 import { generateToken } from "../utils/jwt.js";
 import { Auth } from "../middleware/auth.js";
 
-
-
 export const UserRouter = Router()
-UserRouter.get("/",Auth, async(request, response)=> {
-        response.json({user: await findAll() })
+UserRouter
+    .get("/me", Auth, async (request: any, response) => {
+        response.json({ user: await findById(request.userId) })
     })
 
-    .get("/:id", Auth ,async (request,response) => {
-        response.json({user: await findById(request.params.id) })
+    .get("/", Auth, async (request, response) => {
+        response.json({ user: await findAll() })
     })
 
-    .get("/me", Auth ,async (request:any,response) => {
-        response.json({user: await findById(request.userId) })
+    .get("/:id", Auth, async (request, response) => {
+        response.json({ user: await findById(request.params.id) })
     })
 
-    .get("/forgotPassword/:Email", Auth ,async (request,response) => {
+    .get("/forgotPassword/:Email", Auth, async (request, response) => {
         try {
-        await forgotPassword(request.params.Email)
-        response.json({
-        message: `Verifier votre email(${request.params.Email}), nous vous avons envoyé un lien de reinitialisation`})
-        } catch (error:any) {
-            response.status(403).json({message:"generation de lien de reiitialisation de mot de passe echouer"})
-            
+            await forgotPassword(request.params.Email)
+            response.json({
+                message: `Verifier votre email(${request.params.Email}), nous vous avons envoyé un lien de reinitialisation`
+            })
+        } catch (error: any) {
+            response.status(403).json({ message: "generation de lien de reiitialisation de mot de passe echouer" })
+
         }
     })
 
@@ -36,16 +36,16 @@ UserRouter.get("/",Auth, async(request, response)=> {
     .post("/", async (request, response) => {
         const user = await createUser(request.body)
         response.json({ user })
-        
-    }) 
 
-    .post("/login", async(request, response) => {
+    })
+
+    .post("/login", async (request, response) => {
         try {
-            const user = await loginUser({Email:request.body.Email , Password:request.body.Password})
+            const user = await loginUser({ Email: request.body.Email, Password: request.body.Password })
             const token = generateToken(user.id, user.Email)
-            response.json({token})
-        } 
-        catch(error:any) {
-            response.status(403).json({message:error.message})
+            response.json({ token })
+        }
+        catch (error: any) {
+            response.status(403).json({ message: error.message })
         }
     })
