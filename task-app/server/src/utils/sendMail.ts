@@ -17,7 +17,7 @@ export async function sendEmail ({to,subject,html}: EmailOptions): Promise<void>
         }) 
 
         const mailOptions = {
-            from: ` "Taskyfy" <${process.env.EMAIL_USER}>`,
+            from: ` "Taskify" <${process.env.EMAIL_USER}>`,
             to,
             subject,
             html,
