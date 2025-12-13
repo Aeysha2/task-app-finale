@@ -12,14 +12,15 @@ import { Auth } from "../middleware/auth.js";
 
 export const TaskRouter = Router()
 TaskRouter
-    .get("/", async (request:any, response:any) => {
-         try {
+    .get("/", async (request: any, response: any) => {
+        try {
             const taskStatus: string = (request.query.Status as string) || ""
-             const tasks = await findAllTasks(taskStatus, request.userId)
+            const search: string = (request.query.search as string) || ""
+            const tasks = await findAllTasks(taskStatus, request.userId, search)
             return response.json(tasks)
-         } catch (error: any) {
+        } catch (error: any) {
             response.status(404).json({ message: error.message })
-         }
+        }
     })
 
     .get("/:id", async (request, response) => {
@@ -50,18 +51,18 @@ TaskRouter
         }
     })
 
-    .put("/:id", Auth,async (request:any, response:any) => {
-    try {
-        const updatedTask = await updateTask(request.params.id, request.body)
-        response.json({ task: updatedTask })
-    } catch (error:any) {
-        response.status(400).json({ message: error.message })
-    }
-})
+    .put("/:id", Auth, async (request: any, response: any) => {
+        try {
+            const updatedTask = await updateTask(request.params.id, request.body)
+            response.json({ task: updatedTask })
+        } catch (error: any) {
+            response.status(400).json({ message: error.message })
+        }
+    })
 
-    .post("/", async (request:any, response:any) => {
+    .post("/", async (request: any, response: any) => {
 
-        const task = await createTask({...request.body, userId:request.userId})
+        const task = await createTask({ ...request.body, userId: request.userId })
 
-        response.json({task})
+        response.json({ task })
     }) 
