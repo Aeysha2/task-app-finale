@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === "production") {
             path.join(__dirname, "../../task-app-client/build")
         )
     )
-    application.get("*", (request, response)=>{
+     application.get("/*", (request, response) =>{
         response.sendFile(
             path.join(__dirname, "../../task-app-client/build/index.html")
         )
