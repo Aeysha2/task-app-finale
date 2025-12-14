@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import { TaskEditForm } from "~/dashboard/components/taskEditForm";
-import { baseUrl } from "~/utils/constante";
-import { getTokenFromStorage } from "~/utils/getUserLogged";
+import { useEffect, useState } from "react"
+import { useParams } from "react-router"
+import { TaskEditForm } from "~/dashboard/components/taskEditForm"
+import { baseUrl } from "~/utils/constante"
+import { getTokenFromStorage } from "~/utils/getUserLogged"
 
 export default function TaskDetail() {
     const { id } = useParams();
-    const [task, setTask] = useState<any>(null);
+    const [task, setTask] = useState<any>(null)
     const [isEditing, setIsEditing] = useState(false)
 
     useEffect(() => {
@@ -19,7 +19,7 @@ export default function TaskDetail() {
             .then(data => setTask(data.task))
     }, [id]);
 
-    if (!task) return <p>Chargement...</p>;
+    if (!task) return <p>Chargement...</p>
 
     const handleStart = () => {
         fetch(`${baseUrl}/tasks/starting/${task.id}`, {

@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 export function TaskEditForm({ task, onSave, onCancel }: any) {
-    const [title, setTitle] = useState(task.title);
-    const [description, setDescription] = useState(task.description);
+    const [title, setTitle] = useState(task.title)
+    const [description, setDescription] = useState(task.description)
 
     return (
         <div className="mt-4 p-3 border rounded-2xl bg-white shadow-sm">

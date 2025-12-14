@@ -33,10 +33,10 @@ export const Home = () => {
     }, [user])
     return (
         <>
-            <div className="bg-gray-600 p-10 gap-40 flex justify-center items-center">
+            <div className="bg-gray-950 p-10 gap-40 flex justify-center items-center">
                 <div className="flex items-center gap-2">
                     <div className="w-10 h-10 bg-white flex  justify-center items-center rounded-full uppercase">{user?.Firstname[0]}{user?.Lastname[0]}</div>
-                    <small className="text-base uppercase">
+                    <small className="text-base uppercase text-white">
                         {user?.Firstname} {user?.Lastname}
                     </small>
                 </div>

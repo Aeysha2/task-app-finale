@@ -19,8 +19,10 @@ export const DisplayTask = ({ user }: { user?: UserLogged | null }) => {
 
   }, [user, statusFilter, searchInput])
   return (
-    <div className="bg-white p-10 min-h-screen h-full">
-      <div className="p-8 rounded-2xl w-full not-first:shadow-lg b">
+    <div
+      className="relative p-10 min-h-screen h-full bg-cover bg-center"
+      style={{ backgroundImage: "url('/images/a.jpg')" }}
+    >      <div className="p-8 rounded-2xl w-full not-first:shadow-lg b">
         <h1 className="text-xl my-10 text-center uppercase">liste des tache</h1>
         <div className="flex justify-center gap-3 mb-6">
           <div className="relative w-1/3">
