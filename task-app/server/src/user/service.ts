@@ -1,8 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import { CreateUser, UpdateUser, LoginUser } from "@src/type";
-import { generateToken } from "../utils/jwt.js";
+import { generateToken, SECRET_KEY } from "../utils/jwt.js";
 import { hash, compare } from "bcrypt";
 import { sendEmail } from "../utils/sendMail.js";
+import jwt from "jsonwebtoken";
+
 
 
 const prisma = new PrismaClient()
@@ -37,7 +39,25 @@ export const forgotPassword = async (Email: string) => {
         </p>
         <p>Si vous n'êtes pas à l'origine de cette demande, ignorez simplement cet email.</p>
     `})
+}
 
+export const resetPassword = async (token: string, Password: string) => {
+    const decode: any = jwt.verify(token, SECRET_KEY);
+
+    const user = await prisma.user.findUnique({
+        where: { id: decode.userId }
+    });
+
+    if (!user) throw new Error("Utilisateur introuvable")
+
+    const hashedPassword = await hash(Password, 10)
+
+    await prisma.user.update({
+        where: { id: user.id },
+        data: { Password: hashedPassword }
+    });
+
+    return { message: "Mot de passe réinitialisé avec succès" }
 }
 
 export const updateById = async (id: string, body: UpdateUser) => {

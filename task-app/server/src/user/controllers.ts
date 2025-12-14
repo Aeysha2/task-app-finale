@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createUser, findAll, findById, loginUser, updateById, forgotPassword } from "./service.js";
+import { createUser, findAll, findById, loginUser, updateById, forgotPassword, resetPassword } from "./service.js";
 import { generateToken } from "../utils/jwt.js";
 import { Auth } from "../middleware/auth.js";
 
@@ -25,6 +25,15 @@ UserRouter
         })
         }
     })
+
+    .patch("/resetPassword/:token", async (request, response) => {
+    try {
+        await resetPassword(request.params.token, request.body.Password)
+        response.json({ message: "Mot de passe modifié, connectez-vous maintenant." })
+    } catch (error: any) {
+        response.status(400).json({ message: error.message })
+    }
+})
 
     .get("/:id", Auth, async (request, response) => {
         response.json({ user: await findById(request.params.id) })
