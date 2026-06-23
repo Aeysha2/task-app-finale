@@ -2,7 +2,7 @@
   "name": "task-app-fullstack",
   "version": "1.0.0",
   "scripts": {
-    "build": "prisma generate --schema=task-app/server/prisma/schema.prisma && cd task-app/task-app-client && npm install && npm run build && cd ../.. && rm -rf public && cp -r task-app/task-app-client/build/client public"
+    "build": "prisma generate --schema=task-app/server/prisma/schema.prisma && cd task-app/task-app-client && npm install && npm run build && cd ../.. && cp -r task-app/task-app-client/build/client/* ."
   },
   "dependencies": {
     "@prisma/client": "6.19",
