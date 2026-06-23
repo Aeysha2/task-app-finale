@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "/users/:path*",
+      "destination": "/api"
+    },
+    {
+      "source": "/tasks/:path*",
+      "destination": "/api"
+    },
+    {
+      "source": "/((?!api|users|tasks).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

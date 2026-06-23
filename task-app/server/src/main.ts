@@ -7,7 +7,7 @@ import path from "path";
 import dotenv from "dotenv";
 dotenv.config();
 
-const application = EXPRESS();
+export const application = EXPRESS();
 
 // En dev : port 5000, en prod : port 3000 (ou ce que tu définis dans .env)
 const port = process.env.PORT || 5000;
@@ -33,4 +33,6 @@ if (process.env.NODE_ENV === "production") {
     });
 }
 
-application.listen(port, () => console.log(`Connecté sur http://localhost:${port}`));
+if (!process.env.VERCEL) {
+    application.listen(port, () => console.log(`Connecté sur http://localhost:${port}`));
+}

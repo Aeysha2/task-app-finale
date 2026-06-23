@@ -1,0 +1,25 @@
+{
+  "name": "task-app-fullstack",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "prisma generate --schema=task-app/server/prisma/schema.prisma && cd task-app/task-app-client && npm install && npm run build && cd ../.. && rm -rf public && cp -r task-app/task-app-client/build/client public"
+  },
+  "dependencies": {
+    "@prisma/client": "6.19",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.3",
+    "nodemailer": "^7.0.11"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.5",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.10.1",
+    "@types/nodemailer": "^7.0.4",
+    "prisma": "6.19",
+    "typescript": "^5.9.2"
+  }
+}
