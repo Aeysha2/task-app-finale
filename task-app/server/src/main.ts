@@ -13,7 +13,7 @@ export const application = EXPRESS();
 const port = process.env.PORT || 5000;
 
 application.use(cors({
-    origin: "http://localhost:3000" // autoriser le client React
+    origin: ["http://localhost:3000", "http://localhost:5173"] // autoriser le client React (dev ports 3000 et 5173)
 }));
 application.use(EXPRESS.json());
 application.use(EXPRESS.urlencoded({ extended: true })); // ← fix du warning "deprecated"
