@@ -1,6 +1,8 @@
 .DS_Store
 node_modules/
 public/
+/dist/
+/build/
 /assets/
 /images/
 /index.html

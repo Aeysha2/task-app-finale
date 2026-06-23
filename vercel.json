@@ -10,7 +10,7 @@
       "destination": "/api"
     },
     {
-      "source": "/((?!api|users|tasks).*)",
+      "source": "/((?!api|users|tasks|assets|images|favicon.ico|index.html).*)",
       "destination": "/index.html"
     }
   ]
